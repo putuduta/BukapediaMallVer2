@@ -19,7 +19,7 @@ namespace Bukapediamall.Repositories
             string query = "SELECT * FROM Barang";
 
             command.Connection = connection;
-            command.CommandType = System.Data.CommandType.Text;
+            command.CommandType = CommandType.Text;
             command.CommandText = query;
 
             connection.Open();
@@ -58,13 +58,50 @@ namespace Bukapediamall.Repositories
             command.Parameters.Add("@Qty", SqlDbType.Int).Value = barang.Qty;
 
             command.Connection = connection;
-            command.CommandType = System.Data.CommandType.Text;
+            command.CommandType = CommandType.Text;
             command.CommandText = query;
 
             connection.Open();
 
             command.ExecuteNonQuery();
             
+            connection.Close();
+            command.Dispose();
+        }
+
+        public void Update(Barang barang)
+        {
+            string query = "UPDATE Barang SET [Nama] = @Nama, Harga = @Harga, Qty = @Qty WHERE ID = @ID";
+            command.Parameters.Add("@ID", SqlDbType.Int).Value = barang.Id;
+            command.Parameters.Add("@Nama", SqlDbType.VarChar, 255).Value = barang.Nama;
+            command.Parameters.Add("@Harga", SqlDbType.Int).Value = barang.Harga;
+            command.Parameters.Add("@Qty", SqlDbType.Int).Value = barang.Qty;
+
+            command.Connection = connection;
+            command.CommandType = CommandType.Text;
+            command.CommandText = query;
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+            command.Dispose();
+        }
+
+        public void Delete(int id)
+        {
+            string query = "DELETE FROM Barang WHERE ID = @ID";
+            command.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+
+            command.Connection = connection;
+            command.CommandType = CommandType.Text;
+            command.CommandText = query;
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
             connection.Close();
             command.Dispose();
         }

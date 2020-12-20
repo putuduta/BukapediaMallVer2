@@ -2,6 +2,7 @@
 using Bukapediamall.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bukapediamall
 {
@@ -227,12 +228,105 @@ namespace Bukapediamall
 
 		public void UpdateBarang()
 		{
+			List<Barang> listBarang = barangRepository.View();
 
+			if (listBarang.Count == 0)
+			{
+				Console.WriteLine(" ");
+				Console.WriteLine("There is no data here ....");
+			}
+			else
+			{
+				int i = 1;
+				foreach (var item in listBarang)
+				{
+					Console.WriteLine("");
+					Console.WriteLine("Barang {0}", i++);
+					Console.WriteLine("================");
+					Console.WriteLine("Nama : " + item.Nama);
+					Console.WriteLine("Harga : " + item.Harga);
+					Console.WriteLine("Qty : " + item.Qty);
+					Console.WriteLine();
+				}
+
+				int idx = -1;
+                do
+                {
+                    Console.Write("Barang Index [1-{0}] [type `0` to exit]: ", listBarang.Count);
+					idx = int.Parse(Console.ReadLine());
+                } while (idx < 0 || idx > listBarang.Count);
+                if (idx != 0)
+                {
+					int id = listBarang.ElementAt(idx - 1).Id;
+					string newname = "";
+					int newqty;
+					int newharga;
+
+					do
+					{
+						Console.Write("Input Nama Barang: ");
+						newname = Console.ReadLine();
+					} while (newname.Equals(""));
+
+					do
+					{
+						Console.Write("Input Harga Barang: ");
+						newharga = Convert.ToInt32(Console.ReadLine());
+					} while (newharga < 0);
+
+
+					do
+					{
+						Console.Write("Input Barang Qty: ");
+						newqty = Convert.ToInt32(Console.ReadLine());
+					} while (newqty < 0);
+
+					Barang barang = new Barang(id, newharga, newname, newqty);
+					barangRepository.Update(barang);
+                    Console.WriteLine("Update Success!!");
+					Console.ReadKey();
+				}
+			}
 		}
 
 		public void DeleteBarang()
 		{
+			List<Barang> listBarang = barangRepository.View();
 
+			if (listBarang.Count == 0)
+			{
+				Console.WriteLine(" ");
+				Console.WriteLine("There is no data here ....");
+			}
+			else
+			{
+				int i = 1;
+				foreach (var item in listBarang)
+				{
+					Console.WriteLine("");
+					Console.WriteLine("Barang {0}", i++);
+					Console.WriteLine("================");
+					Console.WriteLine("Nama : " + item.Nama);
+					Console.WriteLine("Harga : " + item.Harga);
+					Console.WriteLine("Qty : " + item.Qty);
+					Console.WriteLine();
+				}
+
+				int idx = -1;
+				do
+				{
+					Console.Write("Barang Index [1-{0}] [type `0` to exit]: ", listBarang.Count);
+					idx = int.Parse(Console.ReadLine());
+				} while (idx < 0 || idx > listBarang.Count);
+				if (idx != 0)
+				{
+					int id = listBarang.ElementAt(idx - 1).Id;
+
+					barangRepository.Delete(id);
+					Console.WriteLine("Delete Success!!");
+					Console.ReadKey();
+				}
+			}
 		}
 	}
 }
