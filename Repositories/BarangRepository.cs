@@ -71,11 +71,11 @@ namespace Bukapediamall.Repositories
 
         public void Update(Barang barang)
         {
-            string query = "UPDATE Barang SET [Nama] = @Nama, Harga = @Harga, Qty = @Qty WHERE ID = @ID";
+            string query = "UPDATE Barang SET [Nama] = @Nama2, Harga = @Harga2, Qty = @Qty2 WHERE ID = @ID";
             command.Parameters.Add("@ID", SqlDbType.Int).Value = barang.Id;
-            command.Parameters.Add("@Nama", SqlDbType.VarChar, 255).Value = barang.Nama;
-            command.Parameters.Add("@Harga", SqlDbType.Int).Value = barang.Harga;
-            command.Parameters.Add("@Qty", SqlDbType.Int).Value = barang.Qty;
+            command.Parameters.Add("@Nama2", SqlDbType.VarChar, 255).Value = barang.Nama;
+            command.Parameters.Add("@Harga2", SqlDbType.Int).Value = barang.Harga;
+            command.Parameters.Add("@Qty2", SqlDbType.Int).Value = barang.Qty;
 
             command.Connection = connection;
             command.CommandType = CommandType.Text;
@@ -91,8 +91,8 @@ namespace Bukapediamall.Repositories
 
         public void Delete(int id)
         {
-            string query = "DELETE FROM Barang WHERE ID = @ID";
-            command.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+            string query = "DELETE FROM Barang WHERE ID = @ID2";
+            command.Parameters.Add("@ID2", SqlDbType.Int).Value = id;
 
             command.Connection = connection;
             command.CommandType = CommandType.Text;

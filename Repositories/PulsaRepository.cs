@@ -68,10 +68,10 @@ namespace Bukapediamall.Repositories
 
         public void Update(Pulsa pulsa)
         {
-            string query = "UPDATE Pulsa SET [NoHp] = @NoHp, Harga = @Harga WHERE ID = @ID";
+            string query = "UPDATE Pulsa SET [NoHp] = @NoHp2, Harga = @Harga2 WHERE ID = @ID";
             command.Parameters.Add("@ID", SqlDbType.Int).Value = pulsa.Id;
-            command.Parameters.Add("@NoHp", SqlDbType.VarChar, 255).Value = pulsa.NoHp;
-            command.Parameters.Add("@Harga", SqlDbType.Int).Value = pulsa.Harga;
+            command.Parameters.Add("@NoHp2", SqlDbType.VarChar, 255).Value = pulsa.NoHp;
+            command.Parameters.Add("@Harga2", SqlDbType.Int).Value = pulsa.Harga;
 
             command.Connection = connection;
             command.CommandType = CommandType.Text;
@@ -87,8 +87,8 @@ namespace Bukapediamall.Repositories
 
         public void Delete(int id)
         {
-            string query = "DELETE FROM Pulsa WHERE ID = @ID";
-            command.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+            string query = "DELETE FROM Pulsa WHERE ID = @ID2";
+            command.Parameters.Add("@ID2", SqlDbType.Int).Value = id;
 
             command.Connection = connection;
             command.CommandType = CommandType.Text;

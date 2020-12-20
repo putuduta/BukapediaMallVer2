@@ -1,0 +1,20 @@
+
+
+CREATE DATABASE Pembelian
+
+USE Pembelian
+
+CREATE TABLE Barang 
+(
+	ID INT IDENTITY(1, 1) PRIMARY KEY,
+	[Nama] VARCHAR(255),
+	Harga INT,
+	Qty INT
+)
+
+CREATE TABLE Pulsa 
+(
+	ID INT IDENTITY(1, 1) PRIMARY KEY,
+	[NoHp] VARCHAR(255),
+	Harga INT
+)
