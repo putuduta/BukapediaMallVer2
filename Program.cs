@@ -9,6 +9,7 @@ namespace Bukapediamall
     class Program
     {
 		public static BarangRepository barangRepository = new BarangRepository();
+		public static PulsaRepository pulsaRepository = new PulsaRepository();
 
         public Program()
         {
@@ -146,22 +147,149 @@ namespace Bukapediamall
 		//Pulsa Section
 		public void AddPulsa ()
         {
+			int id = 0;
+			string nohp = "";
+			int harga;
 
-        }
+			do
+			{
+				Console.Write("Input NoHp: ");
+				nohp = Console.ReadLine();
+			} while (nohp.Equals(""));
+
+			do
+			{
+				Console.Write("Input Harga Pulsa: ");
+				harga = Convert.ToInt32(Console.ReadLine());
+			} while (harga < 0);
+
+
+			Pulsa pulsa = new Pulsa(id, harga, nohp);
+			pulsaRepository.Insert(pulsa);
+
+			Console.WriteLine("Insert Data Success!");
+			Console.ReadKey();
+		}
 
 		public void ViewPulsa()
 		{
+			List<Pulsa> listPulsa = pulsaRepository.View();
 
+			if (listPulsa.Count == 0)
+			{
+				Console.WriteLine(" ");
+				Console.WriteLine("There is no data here ....");
+			}
+			else
+			{
+				int i = 1;
+				foreach (var item in listPulsa)
+				{
+					Console.WriteLine("");
+					Console.WriteLine("Pulsa {0}", i++);
+					Console.WriteLine("================");
+					Console.WriteLine("Nama : " + item.NoHp);
+					Console.WriteLine("Harga : " + item.Harga);
+					Console.WriteLine();
+				}
+			}
+
+			Console.ReadKey();
 		}
 
 		public void UpdatePulsa()
 		{
+			List<Pulsa> listPulsa = pulsaRepository.View();
 
+			if (listPulsa.Count == 0)
+			{
+				Console.WriteLine(" ");
+				Console.WriteLine("There is no data here ....");
+			}
+			else
+			{
+				int i = 1;
+				foreach (var item in listPulsa)
+				{
+					Console.WriteLine("");
+					Console.WriteLine("Pulsa {0}", i++);
+					Console.WriteLine("================");
+					Console.WriteLine("Nama : " + item.NoHp);
+					Console.WriteLine("Harga : " + item.Harga);
+					Console.WriteLine();
+				}
+
+				int idx = -1;
+				do
+				{
+					Console.Write("Barang Index [1-{0}] [type `0` to exit]: ", listPulsa.Count);
+					idx = int.Parse(Console.ReadLine());
+				} while (idx < 0 || idx > listPulsa.Count);
+				if (idx != 0)
+				{
+					int id = listPulsa.ElementAt(idx - 1).Id;
+					string newnohp = "";
+					int newharga;
+
+					do
+					{
+						Console.Write("Input NoHp: ");
+						newnohp = Console.ReadLine();
+					} while (newnohp.Equals(""));
+
+					do
+					{
+						Console.Write("Input Harga Pulsa: ");
+						newharga = Convert.ToInt32(Console.ReadLine());
+					} while (newharga < 0);
+
+
+					Pulsa pulsa = new Pulsa(id, newharga, newnohp);
+					pulsaRepository.Update(pulsa);
+
+					Console.WriteLine("Update Data Success!");
+					Console.ReadKey();
+				}
+			}
 		}
 
 		public void DeletePulsa()
 		{
+			List<Pulsa> listPulsa = pulsaRepository.View();
 
+			if (listPulsa.Count == 0)
+			{
+				Console.WriteLine(" ");
+				Console.WriteLine("There is no data here ....");
+			}
+			else
+			{
+				int i = 1;
+				foreach (var item in listPulsa)
+				{
+					Console.WriteLine("");
+					Console.WriteLine("Pulsa {0}", i++);
+					Console.WriteLine("================");
+					Console.WriteLine("Nama : " + item.NoHp);
+					Console.WriteLine("Harga : " + item.Harga);
+					Console.WriteLine();
+				}
+
+				int idx = -1;
+				do
+				{
+					Console.Write("Pulsa Index [1-{0}] [type `0` to exit]: ", listPulsa.Count);
+					idx = int.Parse(Console.ReadLine());
+				} while (idx < 0 || idx > listPulsa.Count);
+				if (idx != 0)
+				{
+					int id = listPulsa.ElementAt(idx - 1).Id;
+
+					pulsaRepository.Delete(id);
+					Console.WriteLine("Delete Success!!");
+					Console.ReadKey();
+				}
+			}
 		}
 
 		//Barang Section
